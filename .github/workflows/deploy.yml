@@ -9,7 +9,7 @@ on:
 
 # Permisos necesarios para el workflow
 permissions:
-  contents: read    # Leer el contenido del repositorio
+  contents: write    # Leer el contenido del repositorio
   pages: write      # Escribir en GitHub Pages
   id-token: write   # Generar tokens de identidad
 
@@ -28,28 +28,22 @@ jobs:
         uses: actions/setup-node@v4  # Usa la acción oficial para configurar Node.js
         with:
           node-version: 'lts/*'  # Instala la versión LTS más reciente de Node.js
+          cache: 'npm'
 
       # Paso 3: Instalar las dependencias del proyecto
       - name: Instalar dependencias
-        run: npm install  # Ejecuta npm install para instalar paquetes del package.json
+        run: npm ci  # Ejecuta npm ci para instalar paquetes del package.json
 
       # Paso 4: Compilar la aplicación para producción
       - name: Ejecutar build
         run: npm run build  # Ejecuta el script de build definido en package.json
-
       # Paso 5: Configurar la identidad de Git para los commits automáticos
       - name: Configurar identidad de Git
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"  # Email del bot de GitHub Actions
-          git config --global user.name "github-actions[bot]"  # Nombre del bot de GitHub Actions
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
 
-      # Paso 6: Configurar autenticación para push automático
-      - name: Configurar autenticación de GitHub
-        run: |
-          # Configura la URL remota con el token de acceso para autenticación
-          git remote set-url origin https://x-access-token:${{ secrets.EVA_FINAL }}@github.com/${{ github.repository }}.git
-
-      # Paso 7: Ejecutar el deploy de la aplicación
+      # Paso 6: Ejecutar el deploy apuntando a la carpeta dist
       - name: Ejecutar deploy
-        run: npm run deploy  # Ejecuta el script de deploy definido en package.json
-
+        run: |
+          npx gh-pages -d dist -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
