@@ -1,12 +1,32 @@
-# React + Vite
+# Proyecto Final Front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una interfaz web desarrollada con React y Vite para mostrar información relacionada con licitaciones y seguros.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Diseño moderno y responsive
+- Sección de noticias y anuncios
+- Formulario de contacto o registro
+- Integración de datos desde un archivo JSON
 
-## Expanding the ESLint configuration
+## Tecnologías utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- CSS
+- JavaScript
+
+## Instalación
+
+1. Clona este repositorio
+2. Instala las dependencias con `npm install`
+3. Inicia el proyecto con `npm run dev`
+
+## Estructura principal
+
+- `src/components` contiene los componentes principales de la interfaz
+- `src/json` almacena los datos usados por la aplicación
+
+## Autor
+
+Frederick Iribarren
