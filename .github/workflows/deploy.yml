@@ -21,7 +21,7 @@ jobs:
     steps:
       # Paso 1: Descargar el código del repositorio
       - name: Checkout código
-        uses: actions/checkout@v4  # Usa la acción oficial de GitHub para descargar el código
+        uses: actions/checkout@v5  # Usa la acción oficial de GitHub para descargar el código
 
       # Paso 2: Instalar Node.js en el runner
       - name: Instalar Node.js

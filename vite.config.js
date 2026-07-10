@@ -13,5 +13,5 @@ export default defineConfig({
       },
     },
   },
-  base: '/proyecto_final_front/',
+  base: '/proyecto_licitaseguros/',
 })
