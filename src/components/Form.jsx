@@ -65,25 +65,22 @@ export default function Form() {
   ];
 
 
-
+// LLama a la API si no la encuentra llama al Json local
  useEffect(() => {
-    if (import.meta.env.DEV) {
-      // Modo desarrollo: usar el proxy
-      fetch('/ipss/api/mercadoPublico/resultado.json')
-        .then((res) => res.json())
-        .then((json) => {
-          setData(json.Listado || []);
-          setError(false);
-        })
-        .catch(() => {
-          setData([]);
-          setError(true);
-        });
-    } else {
-      // Modo producción: usar el JSON local importado
+    fetch('/ipss/api/mercadoPublico/resultado.json')
+    .then((res) => {
+      if (!res.ok) throw new Error("Error en la respuesta de la red")
+        return res.json();
+    })
+    .then((json) => {
+      setData(json.Listado || []);
+      setError(false);
+    })
+    .catch((err) => {
+      console.warn("La api fallo, usando json local de respaldo", err);
       setData(localData.Listado || []);
       setError(false);
-    }
+    })
   }, []);
  
 

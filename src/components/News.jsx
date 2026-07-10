@@ -64,7 +64,7 @@ const News = () => {
         sx={{ mt: 2, mb: 2, justifyContent: "center" }}
       >
         {sections.map((section) => (
-          <Grid item xs={12} md={10} key={section.title}>
+          <Box key={section.title} sx={{ width: { xs: '100%', md: '83.333333%' } }}>
             <Card
               sx={{
                 display: "flex",
@@ -131,7 +131,7 @@ const News = () => {
                 </List>
               </CardContent>
             </Card>
-          </Grid>
+          </Box>
         ))}
       </Grid>
     </Box>

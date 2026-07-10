@@ -9,12 +9,12 @@ import { red } from "@mui/material/colors";
  *  - Misión y visión destacadas.
  *  - Estilización con Material UI para presentación clara y atractiva.
  */
-const aside = () => {   
+const Aside = () => {   
     return (
         <Box sx={{display: "flex", flexDirection: "column", padding: 2, backgroundColor: "#f5f5f5", borderRadius: 1, alignItems: "center", gap: 2, marginTop: 5}}>
             {/* Título destacado */}
-            <Typography sx={{color: red[600]}}>
-                <h1>¿ Qué es LicitaSeguro ?</h1>
+            <Typography variant="h4" component="h1" sx={{color: red[600], fontWeight: 'bold'}}>
+                ¿ Qué es LicitaSeguro ?
             </Typography>
             {/* Descripción general */}
             <Typography sx={{textAlign: "justify", width: "70%", fontSize: "1.2rem"}}>
@@ -32,4 +32,4 @@ const aside = () => {
     );
 }
 
-export default aside;
+export default Aside;
