@@ -1,0 +1,55 @@
+# Nombre del workflow que aparecerá en GitHub Actions
+name: Build and Deploy
+
+# Define cuándo se ejecuta el workflow
+on:
+  push:
+    branches:
+      - main  # Se ejecuta cuando hay push a la rama main
+
+# Permisos necesarios para el workflow
+permissions:
+  contents: read    # Leer el contenido del repositorio
+  pages: write      # Escribir en GitHub Pages
+  id-token: write   # Generar tokens de identidad
+
+jobs:
+  # Define el trabajo principal del workflow
+  build-and-deploy:
+    runs-on: ubuntu-latest  # Usa la última versión de Ubuntu como entorno de ejecución
+
+    steps:
+      # Paso 1: Descargar el código del repositorio
+      - name: Checkout código
+        uses: actions/checkout@v4  # Usa la acción oficial de GitHub para descargar el código
+
+      # Paso 2: Instalar Node.js en el runner
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4  # Usa la acción oficial para configurar Node.js
+        with:
+          node-version: 'lts/*'  # Instala la versión LTS más reciente de Node.js
+
+      # Paso 3: Instalar las dependencias del proyecto
+      - name: Instalar dependencias
+        run: npm install  # Ejecuta npm install para instalar paquetes del package.json
+
+      # Paso 4: Compilar la aplicación para producción
+      - name: Ejecutar build
+        run: npm run build  # Ejecuta el script de build definido en package.json
+
+      # Paso 5: Configurar la identidad de Git para los commits automáticos
+      - name: Configurar identidad de Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"  # Email del bot de GitHub Actions
+          git config --global user.name "github-actions[bot]"  # Nombre del bot de GitHub Actions
+
+      # Paso 6: Configurar autenticación para push automático
+      - name: Configurar autenticación de GitHub
+        run: |
+          # Configura la URL remota con el token de acceso para autenticación
+          git remote set-url origin https://x-access-token:${{ secrets.EVA_FINAL }}@github.com/${{ github.repository }}.git
+
+      # Paso 7: Ejecutar el deploy de la aplicación
+      - name: Ejecutar deploy
+        run: npm run deploy  # Ejecuta el script de deploy definido en package.json
+
