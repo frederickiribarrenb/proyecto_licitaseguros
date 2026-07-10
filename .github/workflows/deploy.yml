@@ -43,7 +43,11 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      # Paso 6: Ejecutar el deploy apuntando a la carpeta dist
+      # Paso 6: Ejecutar el deploy apuntando a la carpeta dist de forma segura
       - name: Ejecutar deploy
+        env:
+          # Pasamos el secreto a una variable de entorno segura en memoria
+          MI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npx gh-pages -d dist -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          # En la consola llamamos a la variable usando la sintaxis de Linux ($MI_GITHUB_TOKEN)
+          npx gh-pages -d dist -r https://x-access-token:$MI_GITHUB_TOKEN@github.com/${{ github.repository }}.git
